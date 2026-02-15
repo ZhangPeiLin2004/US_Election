@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("subjects_AND_sampling_metadata_anonymized_full.csv", chunksize=100)
+df = pd.read_csv("E:\Csci_3\subjects_AND_sampling_metadata_anonymized_full.csv", chunksize=100)
 chunk = next(df)
 
 categories = {
