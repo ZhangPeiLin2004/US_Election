@@ -43,7 +43,7 @@ except ImportError:
 # ---------------------------------------------------------------------------
 DEFAULT_CSV = os.environ.get(
     "ELECTION_CSV",
-    r"C:/Users/Lucky/Desktop/WG1/subjects_AND_sampling_metadata_anonymized_full.csv",
+    r"E:\Csci_3\subjects_AND_sampling_metadata_anonymized_full.csv",
 )
 CHUNK_SIZE = 100_000
 SWING_STATES = [
