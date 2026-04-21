@@ -1,0 +1,420 @@
+clean...state_simple,topic,count
+Alabama,7,51
+Alabama,8,3
+Alabama,9,18
+Arizona,0,71
+Arizona,1,100
+Arizona,2,190
+Arizona,3,500
+Arizona,4,572
+Arizona,5,46
+Arizona,6,125
+Arizona,7,2277
+Arizona,8,292
+Arizona,9,1237
+Arkansas,2,2
+Arkansas,4,3
+Arkansas,6,3
+Arkansas,7,40
+Arkansas,8,1
+Arkansas,9,31
+California,0,4030
+California,1,3887
+California,2,4506
+California,3,2889
+California,4,5748
+California,5,757
+California,6,10977
+California,7,14998
+California,8,2996
+California,9,7795
+Colorado,0,1120
+Colorado,1,96
+Colorado,2,85
+Colorado,3,194
+Colorado,4,351
+Colorado,5,1219
+Colorado,6,727
+Colorado,7,2058
+Colorado,8,271
+Colorado,9,1407
+Connecticut,0,2
+Connecticut,1,4
+Connecticut,2,3
+Connecticut,3,3
+Connecticut,4,16
+Connecticut,6,2
+Connecticut,7,913
+Connecticut,8,32
+Connecticut,9,433
+Delaware,0,2
+Delaware,1,2
+Delaware,2,2
+Delaware,3,6
+Delaware,4,8
+Delaware,6,2
+Delaware,7,56
+Delaware,8,8
+Delaware,9,56
+District of Columbia,0,25
+District of Columbia,1,2
+District of Columbia,2,13
+District of Columbia,3,5
+District of Columbia,4,64
+District of Columbia,5,3
+District of Columbia,6,6
+District of Columbia,7,1247
+District of Columbia,8,92
+District of Columbia,9,769
+Florida,0,114
+Florida,1,258
+Florida,2,226
+Florida,3,331
+Florida,4,503
+Florida,5,142
+Florida,6,125
+Florida,7,5308
+Florida,8,451
+Florida,9,3506
+Georgia,0,23
+Georgia,1,163
+Georgia,2,44
+Georgia,3,38
+Georgia,4,113
+Georgia,5,13
+Georgia,6,31
+Georgia,7,2524
+Georgia,8,76
+Georgia,9,1669
+Hawaii,0,9
+Hawaii,1,7
+Hawaii,2,14
+Hawaii,3,6
+Hawaii,4,34
+Hawaii,5,2
+Hawaii,6,35
+Hawaii,7,1292
+Hawaii,8,37
+Hawaii,9,487
+Idaho,0,5
+Idaho,1,8
+Idaho,2,9
+Idaho,3,16
+Idaho,4,19
+Idaho,6,1
+Idaho,7,344
+Idaho,8,28
+Idaho,9,252
+Illinois,0,27
+Illinois,1,17
+Illinois,2,22
+Illinois,3,12
+Illinois,4,45
+Illinois,5,7
+Illinois,6,16
+Illinois,7,1710
+Illinois,8,69
+Illinois,9,1248
+Indiana,0,241
+Indiana,1,2
+Indiana,2,229
+Indiana,4,19
+Indiana,6,2
+Indiana,7,124
+Indiana,8,187
+Indiana,9,110
+Iowa,0,3
+Iowa,1,2
+Iowa,3,3
+Iowa,4,55
+Iowa,7,689
+Iowa,8,18
+Iowa,9,369
+Kansas,0,16
+Kansas,1,6
+Kansas,2,12
+Kansas,3,7
+Kansas,4,34
+Kansas,5,3
+Kansas,6,13
+Kansas,7,410
+Kansas,8,52
+Kansas,9,420
+Kentucky,7,22
+Kentucky,8,2
+Kentucky,9,12
+Louisiana,0,5
+Louisiana,1,9
+Louisiana,2,32
+Louisiana,3,9
+Louisiana,4,175
+Louisiana,6,1
+Louisiana,7,526
+Louisiana,8,34
+Louisiana,9,169
+Maine,1,8
+Maine,4,5
+Maine,5,2
+Maine,6,2
+Maine,7,242
+Maine,8,1
+Maine,9,211
+Maryland,0,7
+Maryland,1,4
+Maryland,2,53
+Maryland,3,19
+Maryland,4,60
+Maryland,6,3
+Maryland,7,1860
+Maryland,8,225
+Maryland,9,639
+Massachusetts,0,9
+Massachusetts,1,10
+Massachusetts,2,36
+Massachusetts,3,12
+Massachusetts,4,81
+Massachusetts,5,13
+Massachusetts,6,8
+Massachusetts,7,2126
+Massachusetts,8,74
+Massachusetts,9,828
+Michigan,0,15
+Michigan,1,28
+Michigan,2,17
+Michigan,3,10
+Michigan,4,51
+Michigan,5,4
+Michigan,6,14
+Michigan,7,1365
+Michigan,8,52
+Michigan,9,579
+Minnesota,0,3
+Minnesota,1,8
+Minnesota,2,5
+Minnesota,3,3
+Minnesota,4,15
+Minnesota,5,5
+Minnesota,6,9
+Minnesota,7,334
+Minnesota,8,9
+Minnesota,9,447
+Missouri,0,3
+Missouri,1,4
+Missouri,2,2
+Missouri,4,26
+Missouri,5,30
+Missouri,6,3
+Missouri,7,722
+Missouri,8,8
+Missouri,9,240
+Montana,0,1
+Montana,1,1
+Montana,2,1
+Montana,4,1
+Montana,6,4
+Montana,7,158
+Montana,8,1
+Montana,9,164
+Nebraska,0,9
+Nebraska,1,3
+Nebraska,2,6
+Nebraska,3,4
+Nebraska,4,11
+Nebraska,5,2
+Nebraska,7,290
+Nebraska,8,18
+Nebraska,9,155
+Nevada,0,31
+Nevada,1,28
+Nevada,2,222
+Nevada,3,49
+Nevada,4,134
+Nevada,5,16
+Nevada,6,88
+Nevada,7,3006
+Nevada,8,161
+Nevada,9,1623
+New Hampshire,0,7
+New Hampshire,1,9
+New Hampshire,2,7
+New Hampshire,3,37
+New Hampshire,4,38
+New Hampshire,6,4
+New Hampshire,7,602
+New Hampshire,8,67
+New Hampshire,9,368
+New Jersey,0,728
+New Jersey,1,34
+New Jersey,2,252
+New Jersey,3,147
+New Jersey,4,119
+New Jersey,5,417
+New Jersey,6,361
+New Jersey,7,1179
+New Jersey,8,4559
+New Jersey,9,752
+New Mexico,0,2
+New Mexico,1,3
+New Mexico,2,2
+New Mexico,4,7
+New Mexico,6,1
+New Mexico,7,109
+New Mexico,8,4
+New Mexico,9,72
+New York,0,92
+New York,1,154
+New York,2,243
+New York,3,143
+New York,4,220
+New York,5,47
+New York,6,139
+New York,7,4465
+New York,8,325
+New York,9,3009
+North Carolina,0,19
+North Carolina,1,22
+North Carolina,2,65
+North Carolina,3,20
+North Carolina,4,105
+North Carolina,5,7
+North Carolina,6,28
+North Carolina,7,2222
+North Carolina,8,141
+North Carolina,9,1270
+Ohio,0,277
+Ohio,1,721
+Ohio,2,502
+Ohio,3,1147
+Ohio,4,1713
+Ohio,5,1355
+Ohio,6,1110
+Ohio,7,4046
+Ohio,8,706
+Ohio,9,4541
+Oklahoma,7,45
+Oklahoma,8,2
+Oklahoma,9,32
+Oregon,0,35
+Oregon,1,11
+Oregon,2,7
+Oregon,3,66
+Oregon,4,53
+Oregon,5,8
+Oregon,6,10
+Oregon,7,1203
+Oregon,8,27
+Oregon,9,1049
+Pennsylvania,0,63
+Pennsylvania,1,67
+Pennsylvania,2,210
+Pennsylvania,3,85
+Pennsylvania,4,156
+Pennsylvania,5,17
+Pennsylvania,6,89
+Pennsylvania,7,3395
+Pennsylvania,8,125
+Pennsylvania,9,2077
+Rhode Island,7,136
+Rhode Island,9,25
+South Carolina,0,17
+South Carolina,1,7
+South Carolina,2,10
+South Carolina,3,17
+South Carolina,4,25
+South Carolina,6,17
+South Carolina,7,720
+South Carolina,8,18
+South Carolina,9,491
+South Dakota,7,2
+South Dakota,9,4
+Tennessee,0,5
+Tennessee,1,9
+Tennessee,2,15
+Tennessee,3,64
+Tennessee,4,59
+Tennessee,5,17
+Tennessee,6,21
+Tennessee,7,699
+Tennessee,8,4015
+Tennessee,9,935
+Texas,0,104
+Texas,1,141
+Texas,2,233
+Texas,3,186
+Texas,4,588
+Texas,5,746
+Texas,6,344
+Texas,7,6997
+Texas,8,363
+Texas,9,3569
+USA,0,1508
+USA,1,573
+USA,2,580
+USA,3,1238
+USA,4,1109
+USA,5,259
+USA,6,779
+USA,7,24385
+USA,8,1410
+USA,9,14068
+Unknown,1,1
+Unknown,2,2
+Unknown,4,2
+Unknown,6,1
+Unknown,7,119
+Unknown,8,2
+Unknown,9,43
+Utah,0,1
+Utah,1,4
+Utah,2,5
+Utah,3,2
+Utah,4,4
+Utah,5,8
+Utah,6,1
+Utah,7,115
+Utah,8,4
+Utah,9,104
+Vermont,0,1
+Vermont,1,1
+Vermont,3,1
+Vermont,4,2
+Vermont,6,3
+Vermont,7,186
+Vermont,8,6
+Vermont,9,98
+Virginia,0,24
+Virginia,1,12
+Virginia,2,14
+Virginia,3,36
+Virginia,4,82
+Virginia,5,7
+Virginia,6,14
+Virginia,7,2408
+Virginia,8,72
+Virginia,9,1326
+Washington,0,83
+Washington,1,163
+Washington,2,49
+Washington,3,30
+Washington,4,156
+Washington,5,4
+Washington,6,84
+Washington,7,2843
+Washington,8,153
+Washington,9,1670
+Wisconsin,0,24
+Wisconsin,1,641
+Wisconsin,2,37
+Wisconsin,3,71
+Wisconsin,4,122
+Wisconsin,5,12
+Wisconsin,6,33
+Wisconsin,7,2997
+Wisconsin,8,133
+Wisconsin,9,1079
+Wyoming,0,1
+Wyoming,2,8
+Wyoming,3,1
+Wyoming,7,19
+Wyoming,8,2
+Wyoming,9,12
