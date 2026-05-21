@@ -7,7 +7,7 @@ import statsmodels.formula.api as smf
 # ================================
 # 1. LOAD DATA
 # ================================
-file_path = r"C:\Users\Lucky\Desktop\WG1\subjects_AND_sampling_metadata_anonymized_full.csv"
+file_path = r"E:\Csci_3\subjects_AND_sampling_metadata_anonymized_full.csv"
 
 df = pd.read_csv(
     file_path,
@@ -188,3 +188,370 @@ plt.show()
 
 print(f"\nData range: {daily['date'].min().date()} to {data_end.date()}")
 print(f"Panel: {len(daily):,} state-days, {daily['state'].nunique()} states")
+
+
+
+# ================================
+# 10. LOAD FINAL ELECTION RESULTS
+# ================================
+
+results = pd.read_csv(
+    r"E:\Csci_3\US_Election\Peilin\trump_vs_harris_margins.csv"
+)
+
+results.rename(columns={
+    "trump_margin": "final_margin"
+}, inplace=True)
+
+results["state"] = results["state"].astype(str)
+
+# ================================
+# 11. BUILD STATE-LEVEL FEATURES
+# ================================
+
+did_cols = [f"{event}_did" for event in events.keys()]
+
+state_features = daily.groupby("state").agg({
+    "tweet_volume": "mean",
+    "reply_volume": "mean",
+    "log_volume": "mean",
+    **{col: "sum" for col in did_cols}
+}).reset_index()
+
+# Engagement intensity
+state_features["engagement_rate"] = (
+    state_features["reply_volume"] /
+    state_features["tweet_volume"]
+)
+
+# ================================
+# 12. MERGE FINAL ELECTION OUTCOMES
+# ================================
+
+state_features = state_features.merge(
+    results,
+    on="state",
+    how="left"
+)
+
+print("\n=== STATE FEATURES ===")
+print(state_features)
+
+# ================================
+# 13. FINAL ELECTION PREDICTION MODEL
+# ================================
+
+formula = """
+final_margin
+~ engagement_rate
++ log_volume
++ campaign_start_did
++ debate_did
++ trump_incident_did
++ biden_dropout_did
+"""
+
+final_model = smf.ols(
+    formula=formula,
+    data=state_features
+).fit()
+
+print("\n=== FINAL ELECTION MODEL ===")
+print(final_model.summary())
+
+# ================================
+# 14. GENERATE PREDICTIONS
+# ================================
+
+state_features["predicted_margin"] = (
+    final_model.predict(state_features)
+)
+
+# Prediction error
+state_features["prediction_error"] = (
+    state_features["final_margin"] -
+    state_features["predicted_margin"]
+)
+
+print("\n=== PREDICTIONS ===")
+print(
+    state_features[
+        [
+            "state",
+            "final_margin",
+            "predicted_margin",
+            "prediction_error"
+        ]
+    ]
+)
+
+# ================================
+# 15. VISUALIZATION:
+# ACTUAL VS PREDICTED
+# ================================
+
+plt.figure(figsize=(10, 6))
+
+sns.scatterplot(
+    data=state_features,
+    x="final_margin",
+    y="predicted_margin",
+    s=120
+)
+
+for _, row in state_features.iterrows():
+    plt.text(
+        row["final_margin"] + 0.05,
+        row["predicted_margin"] + 0.05,
+        row["state"],
+        fontsize=9
+    )
+
+# Perfect prediction reference line
+min_val = min(
+    state_features["final_margin"].min(),
+    state_features["predicted_margin"].min()
+)
+
+max_val = max(
+    state_features["final_margin"].max(),
+    state_features["predicted_margin"].max()
+)
+
+plt.plot(
+    [min_val, max_val],
+    [min_val, max_val],
+    linestyle="--"
+)
+
+plt.xlabel("Actual Trump Margin")
+plt.ylabel("Predicted Trump Margin")
+
+plt.title(
+    "Predicted vs Actual Trump-Harris Margins"
+)
+
+plt.tight_layout()
+plt.show()
+
+# ================================
+# 10. LOAD FINAL ELECTION RESULTS
+# ================================
+
+results = pd.read_csv(
+    r"E:\Csci_3\US_Election\Peilin\trump_vs_harris_margins.csv"
+)
+
+results.rename(columns={
+    "trump_margin": "final_margin"
+}, inplace=True)
+
+results["state"] = results["state"].astype(str)
+
+# ================================
+# 11. BUILD STATE-LEVEL FEATURES
+# ================================
+
+did_cols = [f"{event}_did" for event in events.keys()]
+
+state_features = daily.groupby("state").agg({
+    "tweet_volume": "mean",
+    "reply_volume": "mean",
+    "log_volume": "mean",
+    **{col: "sum" for col in did_cols}
+}).reset_index()
+
+# Engagement intensity
+state_features["engagement_rate"] = (
+    state_features["reply_volume"] /
+    state_features["tweet_volume"]
+)
+
+# ================================
+# 12. MERGE FINAL ELECTION OUTCOMES
+# ================================
+
+state_features = state_features.merge(
+    results,
+    on="state",
+    how="left"
+)
+
+# IMPORTANT FIX:
+# merge final election results into DAILY too
+daily = daily.merge(
+    results,
+    on="state",
+    how="left"
+)
+
+print("\n=== STATE FEATURES ===")
+print(state_features)
+
+# ================================
+# 13. FINAL ELECTION PREDICTION MODEL
+# ================================
+
+formula = """
+final_margin
+~ engagement_rate
++ log_volume
++ campaign_start_did
++ debate_did
++ trump_incident_did
++ biden_dropout_did
+"""
+
+final_model = smf.ols(
+    formula=formula,
+    data=state_features
+).fit()
+
+print("\n=== FINAL ELECTION MODEL ===")
+print(final_model.summary())
+
+# ================================
+# 14. GENERATE PREDICTIONS
+# ================================
+
+state_features["predicted_margin"] = (
+    final_model.predict(state_features)
+)
+
+# Prediction error
+state_features["prediction_error"] = (
+    state_features["final_margin"] -
+    state_features["predicted_margin"]
+)
+
+print("\n=== PREDICTIONS ===")
+print(
+    state_features[
+        [
+            "state",
+            "final_margin",
+            "predicted_margin",
+            "prediction_error"
+        ]
+    ]
+)
+
+# ================================
+# 15. DYNAMIC TRAJECTORY MODEL
+# ================================
+
+# Daily momentum proxy
+daily["momentum"] = (
+    daily["log_volume"]
+    .diff()
+)
+
+# Remove NA from diff
+daily = daily.dropna(subset=["momentum"]).copy()
+
+# Trajectory model
+trajectory_formula = """
+momentum
+~ campaign_start_did
++ debate_did
++ trump_incident_did
++ biden_dropout_did
++ C(state_id)
+"""
+
+trajectory_model = smf.ols(
+    formula=trajectory_formula,
+    data=daily
+).fit()
+
+print("\n=== DYNAMIC TRAJECTORY MODEL ===")
+print(trajectory_model.summary())
+
+# Predicted momentum
+daily["predicted_momentum"] = (
+    trajectory_model.predict(daily)
+)
+
+# ================================
+# CONVERT MOMENTUM INTO TRAJECTORY
+# ================================
+
+daily = daily.sort_values(["state", "date"])
+
+daily["trajectory"] = (
+    daily.groupby("state")["predicted_momentum"]
+    .cumsum()
+)
+
+# Smooth trajectories
+daily["trajectory_smooth"] = (
+    daily.groupby("state")["trajectory"]
+    .transform(lambda x: x.rolling(7, min_periods=1).mean())
+)
+
+# ================================
+# NORMALIZE TO FINAL MARGINS
+# ================================
+
+# Anchor trajectory endpoints
+final_margin_map = dict(
+    zip(results["state"], results["final_margin"])
+)
+
+for state in daily["state"].unique():
+
+    mask = daily["state"] == state
+
+    traj = daily.loc[mask, "trajectory_smooth"]
+
+    if traj.std() == 0:
+        continue
+
+    # Standardize
+    normalized = (
+        (traj - traj.mean()) / traj.std()
+    )
+
+    # Scale around final election margin
+    final_margin = final_margin_map.get(state, 0)
+
+    daily.loc[mask, "trajectory_scaled"] = (
+        normalized * 0.8 + final_margin
+    )
+
+# ================================
+# VISUALIZATION
+# ================================
+
+plt.figure(figsize=(15, 7))
+
+sns.lineplot(
+    data=daily[daily["treated"] == 1],
+    x="date",
+    y="trajectory_scaled",
+    hue="state",
+    linewidth=2
+)
+
+# Event markers
+for event_name, event_date in events.items():
+
+    plt.axvline(
+        pd.to_datetime(event_date, utc=True),
+        linestyle="--",
+        alpha=0.5
+    )
+
+plt.title(
+    "Predicted Electoral Momentum Trajectories Across Swing States"
+)
+
+plt.xlabel("Date")
+plt.ylabel("Predicted Trump Margin Trend")
+
+plt.xticks(rotation=45)
+
+plt.legend(title="Swing State")
+
+plt.tight_layout()
+plt.show()
