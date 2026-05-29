@@ -7,11 +7,7 @@ import statsmodels.formula.api as smf
 # ================================
 # 1. LOAD DATA
 # ================================
-<<<<<<< HEAD
-file_path = r"E:\Csci_3\subjects_AND_sampling_metadata_anonymized_full.csv"
-=======
 file_path = r"/Users/baiyifan/Desktop/subjects_AND_sampling_metadata_anonymized_full.csv"
->>>>>>> 8d19e7f (Add systematic bias audit to DiD analysis)
 
 df = pd.read_csv(
     file_path,
@@ -59,7 +55,7 @@ df["is_ambiguous_state"] = df["state"].isin(AMBIGUOUS_LABELS)
 n_ambiguous = int(df["is_ambiguous_state"].sum())
 
 # Full frame (incl. ambiguous labels) is retained for the concentration audit;
-# df_states is the cleaned state-level panel used for causal estimation.
+# df is the cleaned state-level panel used for causal estimation.
 df_full = df.copy()
 df = df[~df["is_ambiguous_state"]].copy()
 
@@ -226,7 +222,6 @@ print(f"\nData range: {daily['date'].min().date()} to {data_end.date()}")
 print(f"Panel: {len(daily):,} state-days, {daily['state'].nunique()} states")
 
 
-<<<<<<< HEAD
 
 # ================================
 # 10. LOAD FINAL ELECTION RESULTS
@@ -368,68 +363,10 @@ plt.title(
     "Predicted vs Actual Trump-Harris Margins"
 )
 
-=======
-# ##################################################################
-# SYSTEMATIC BIAS AUDIT
-# Operationalizes the four testing strategies from the Week 8 audit:
-# (A) visibility, (B) participation/representation, (C) amplification,
-# (D) salience -- plus the normalization / missingness mitigations.
-# ##################################################################
-
-# ================================
-# 10. ENGAGEMENT CONCENTRATION ANALYSIS  [A: Visibility bias]
-# ================================
-# Question: is the signal disproportionately driven by a few high-volume
-# states? Computed on the FULL frame (incl. ambiguous labels) so that
-# aggregate labels like "USA" are visible in the concentration picture.
-state_totals = (
-    df_full.groupby("state").size().sort_values(ascending=False)
-    .rename("volume").to_frame()
-)
-total_volume = state_totals["volume"].sum()
-state_totals["share"] = state_totals["volume"] / total_volume
-state_totals["cum_share"] = state_totals["share"].cumsum()
-
-
-def herfindahl_index(shares):
-    """HHI in [0, 1]; higher = more concentrated."""
-    return float(np.sum(np.square(shares)))
-
-
-def gini(values):
-    """Gini coefficient of a non-negative distribution."""
-    v = np.sort(np.asarray(values, dtype=float))
-    n = v.size
-    if n == 0 or v.sum() == 0:
-        return np.nan
-    cum = np.cumsum(v)
-    return float((n + 1 - 2 * np.sum(cum) / cum[-1]) / n)
-
-
-hhi = herfindahl_index(state_totals["share"].values)
-gini_coef = gini(state_totals["volume"].values)
-top4_share = state_totals["share"].head(4).sum()
-
-print(f"\n{'=' * 60}\n10. ENGAGEMENT CONCENTRATION (visibility bias)\n{'=' * 60}")
-print(f"States observed:        {len(state_totals)}")
-print(f"HHI (0-1, higher=worse): {hhi:.4f}")
-print(f"Gini (0-1, higher=worse): {gini_coef:.4f}")
-print(f"Top-4 state share:       {top4_share:.3f}")
-print("\nTop 10 states by share of engagement volume:")
-print(state_totals.head(10).round(4).to_string())
-
-top_n = state_totals.head(15).iloc[::-1]
-plt.figure(figsize=(10, 7))
-sns.barplot(x=top_n["share"], y=top_n.index, color="#4878CF")
-plt.title("Engagement concentration: share of total volume by state (top 15)")
-plt.xlabel("Share of total tweet volume")
-plt.ylabel("State")
->>>>>>> 8d19e7f (Add systematic bias audit to DiD analysis)
 plt.tight_layout()
 plt.show()
 
 # ================================
-<<<<<<< HEAD
 # 10. LOAD FINAL ELECTION RESULTS
 # ================================
 
@@ -650,8 +587,68 @@ plt.legend(title="Swing State")
 
 plt.tight_layout()
 plt.show()
-=======
-# 11. MISSINGNESS / DATA-COVERAGE REPORT  [mitigation 3]
+
+
+# ##################################################################
+# SYSTEMATIC BIAS AUDIT
+# Operationalizes the four testing strategies from the Week 8 audit:
+# (A) visibility, (B) participation/representation, (C) amplification,
+# (D) salience -- plus the normalization / missingness mitigations.
+# ##################################################################
+
+# ================================
+# 16. ENGAGEMENT CONCENTRATION ANALYSIS  [A: Visibility bias]
+# ================================
+# Question: is the signal disproportionately driven by a few high-volume
+# states? Computed on the FULL frame (incl. ambiguous labels) so that
+# aggregate labels like "USA" are visible in the concentration picture.
+state_totals = (
+    df_full.groupby("state").size().sort_values(ascending=False)
+    .rename("volume").to_frame()
+)
+total_volume = state_totals["volume"].sum()
+state_totals["share"] = state_totals["volume"] / total_volume
+state_totals["cum_share"] = state_totals["share"].cumsum()
+
+
+def herfindahl_index(shares):
+    """HHI in [0, 1]; higher = more concentrated."""
+    return float(np.sum(np.square(shares)))
+
+
+def gini(values):
+    """Gini coefficient of a non-negative distribution."""
+    v = np.sort(np.asarray(values, dtype=float))
+    n = v.size
+    if n == 0 or v.sum() == 0:
+        return np.nan
+    cum = np.cumsum(v)
+    return float((n + 1 - 2 * np.sum(cum) / cum[-1]) / n)
+
+
+hhi = herfindahl_index(state_totals["share"].values)
+gini_coef = gini(state_totals["volume"].values)
+top4_share = state_totals["share"].head(4).sum()
+
+print(f"\n{'=' * 60}\n16. ENGAGEMENT CONCENTRATION (visibility bias)\n{'=' * 60}")
+print(f"States observed:        {len(state_totals)}")
+print(f"HHI (0-1, higher=worse): {hhi:.4f}")
+print(f"Gini (0-1, higher=worse): {gini_coef:.4f}")
+print(f"Top-4 state share:       {top4_share:.3f}")
+print("\nTop 10 states by share of engagement volume:")
+print(state_totals.head(10).round(4).to_string())
+
+top_n = state_totals.head(15).iloc[::-1]
+plt.figure(figsize=(10, 7))
+sns.barplot(x=top_n["share"], y=top_n.index, color="#4878CF")
+plt.title("Engagement concentration: share of total volume by state (top 15)")
+plt.xlabel("Share of total tweet volume")
+plt.ylabel("State")
+plt.tight_layout()
+plt.show()
+
+# ================================
+# 17. MISSINGNESS / DATA-COVERAGE REPORT  [mitigation 3]
 # ================================
 # Sparse states yield unreliable estimates; report coverage transparently.
 coverage = (
@@ -670,7 +667,7 @@ coverage["coverage_ratio"] = coverage["state_days"] / panel_span_days
 SPARSE_THRESHOLD = 0.25  # <25% of calendar days observed = sparse
 coverage["sparse_flag"] = coverage["coverage_ratio"] < SPARSE_THRESHOLD
 
-print(f"\n{'=' * 60}\n11. MISSINGNESS / COVERAGE REPORT\n{'=' * 60}")
+print(f"\n{'=' * 60}\n17. MISSINGNESS / COVERAGE REPORT\n{'=' * 60}")
 print(f"Rows dropped as ambiguous labels (USA/Unknown/...): {n_ambiguous:,}")
 print(f"Calendar span: {panel_span_days} days")
 print(f"Sparse states (<{SPARSE_THRESHOLD:.0%} day coverage): "
@@ -679,7 +676,7 @@ print("\nLeast-covered states:")
 print(coverage.head(10).round(3).to_string())
 
 # ================================
-# 12. AMPLIFICATION AUDIT  [C: viral-spike sensitivity, mitigation 2]
+# 18. AMPLIFICATION AUDIT  [C: viral-spike sensitivity, mitigation 2]
 # ================================
 # Flag within-state viral spike days and re-estimate each event DiD with
 # spikes removed. If coefficients move sharply, the effect is driven by
@@ -708,34 +705,34 @@ for event_name in events:
 
 amp = pd.DataFrame(amp_rows)
 amp["abs_change"] = (amp["coef_full"] - amp["coef_no_spike"]).abs()
-print(f"\n{'=' * 60}\n12. AMPLIFICATION AUDIT (spike sensitivity)\n{'=' * 60}")
+print(f"\n{'=' * 60}\n18. AMPLIFICATION AUDIT (spike sensitivity)\n{'=' * 60}")
 print(f"Spike days flagged (top {1 - SPIKE_QUANTILE:.0%} within state): {n_spike:,}")
 print("DiD coefficient with vs without viral spike days:")
 print(amp.round(4).to_string(index=False))
 
 # ================================
-# 13. NORMALIZED-OUTCOME ROBUSTNESS  [mitigation 1]
+# 19. NORMALIZED-OUTCOME ROBUSTNESS  [mitigation 1]
 # ================================
-# Re-estimate the example event on the within-state standardized outcome so
-# the result cannot be driven by large states' raw volume scale.
+# Re-estimate each event on the within-state standardized outcome so the
+# result cannot be driven by large states' raw volume scale.
 norm_rows = []
 for event_name in events:
     did_col = f"{event_name}_did"
     if daily[f"{event_name}_post"].sum() == 0:
         continue
-    formula = f"log_volume_state_z ~ {did_col} + C(state_id) + C(date_id)"
-    m = smf.ols(formula, data=daily).fit(cov_type="HC3")
+    formula_norm = f"log_volume_state_z ~ {did_col} + C(state_id) + C(date_id)"
+    m = smf.ols(formula_norm, data=daily).fit(cov_type="HC3")
     norm_rows.append({
         "event": event_name,
         "coef_norm": m.params[did_col],
         "p_value_norm": m.pvalues[did_col],
     })
 norm = pd.DataFrame(norm_rows)
-print(f"\n{'=' * 60}\n13. NORMALIZED-OUTCOME DiD (within-state z-score)\n{'=' * 60}")
+print(f"\n{'=' * 60}\n19. NORMALIZED-OUTCOME DiD (within-state z-score)\n{'=' * 60}")
 print(norm.round(4).to_string(index=False))
 
 # ================================
-# 14. REPRESENTATION AUDIT  [B: engagement vs actual election margins]
+# 20. REPRESENTATION AUDIT  [B: engagement vs actual election margins]
 # ================================
 # Compare online engagement intensity against external ground truth: the
 # certified 2024 presidential margin (abs. pp) in each swing state. Tests
@@ -760,7 +757,7 @@ swing_intensity = (
 swing_intensity["abs_margin"] = swing_intensity.index.map(actual_margin_2024)
 swing_intensity = swing_intensity.dropna(subset=["abs_margin"])
 
-print(f"\n{'=' * 60}\n14. REPRESENTATION AUDIT (engagement vs 2024 margin)\n{'=' * 60}")
+print(f"\n{'=' * 60}\n20. REPRESENTATION AUDIT (engagement vs 2024 margin)\n{'=' * 60}")
 if len(swing_intensity) >= 3:
     corr = swing_intensity["mean_log_volume"].corr(swing_intensity["abs_margin"])
     print(f"Correlation(mean log volume, |2024 margin|) = {corr:.3f}")
@@ -783,4 +780,3 @@ else:
     print("Insufficient swing-state coverage for representation audit.")
 
 print(f"\n{'=' * 60}\nBIAS AUDIT COMPLETE\n{'=' * 60}")
->>>>>>> 8d19e7f (Add systematic bias audit to DiD analysis)
