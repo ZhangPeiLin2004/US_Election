@@ -10,7 +10,6 @@ Average tweets per user: ~2,314
 Structure:
 Each row = one historical tweet from a user. Multiple rows per user (one row per historical tweet). The tweets_historical field contains the actual tweet text and varies between rows for the same user. The sampling_tweet and id.tweets fields identify the tweet used to sample the user and stay constant per user
 
-Rules of splitting is given by POSSUM
 
 ## Folder structure
 
