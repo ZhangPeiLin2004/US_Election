@@ -11,3 +11,10 @@ Structure:
 Each row = one historical tweet from a user. Multiple rows per user (one row per historical tweet). The tweets_historical field contains the actual tweet text and varies between rows for the same user. The sampling_tweet and id.tweets fields identify the tweet used to sample the user and stay constant per user
 
 Rules of splitting is given by POSSUM
+
+## Folder structure
+
+- `docs/` — PDFs and per-member notes (`POSSUM.pdf`, `Twitter_dataset.pdf`, `README_*.md`)
+- `data/` — CSV datasets and analysis outputs (incl. `test_missing_state_output/`)
+- `notebooks/` — Jupyter notebooks (`.ipynb`)
+- `scripts/` — Python scripts (`.py`)

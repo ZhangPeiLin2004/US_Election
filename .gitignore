@@ -1,3 +1,7 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Large/private data files (formerly Yifan/.gitignore)
+data/subjects_cleaned_basic.csv
+data/subjects_AND_sampling_metadata_anonymized_full.csv
