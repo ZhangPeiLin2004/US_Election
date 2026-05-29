@@ -7,7 +7,7 @@ import statsmodels.formula.api as smf
 # ================================
 # 1. LOAD DATA
 # ================================
-file_path = r"/Users/baiyifan/Desktop/subjects_AND_sampling_metadata_anonymized_full.csv"
+file_path = r"E:\Csci_3\subjects_AND_sampling_metadata_anonymized_full.csv"
 
 df = pd.read_csv(
     file_path,
@@ -228,7 +228,7 @@ print(f"Panel: {len(daily):,} state-days, {daily['state'].nunique()} states")
 # ================================
 
 results = pd.read_csv(
-    r"E:\Csci_3\US_Election\Peilin\trump_vs_harris_margins.csv"
+    r"E:\Csci_3\US_Election\data\trump_vs_harris_margins.csv"
 )
 
 results.rename(columns={
